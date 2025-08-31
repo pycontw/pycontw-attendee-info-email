@@ -93,6 +93,6 @@ function getPreviewRecipients(recipients: Recipient[], count = 3): string {
     recipients
       .slice(0, count)
       .map((r) => `  ${r.name} <${r.email}>`)
-      .join("\n") + (recipients.length > count ? "\n..." : "")
+      .join("\n") + (recipients.length > count ? "\n  ..." : "")
   );
 }
