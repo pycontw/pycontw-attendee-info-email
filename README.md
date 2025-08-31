@@ -13,6 +13,17 @@ Generate and send attendee information emails for PyCon events.
 pnpm i
 ```
 
+### Send Email
+
+![Send email CLI screenshot](./.github/assets/send-email-cli-screenshot.png)
+
+1. Create `.env` from `template.env` for MailerSend API keys.
+2. Create `recipients.yaml` from `template.recipients.yaml` for email recipients.
+
+```bash
+pnpm run send
+```
+
 ## Development
 
 Email templates are located in the `emails` directory.
@@ -25,14 +36,6 @@ pnpm run dev
 pnpm run export
 ```
 
-## Send Email
-
-1. Create `.env` from `template.env` for MailerSend API keys.
-2. Create `recipients.yaml` from `template.recipients.yaml` for email recipients.
-
-```bash
-pnpm run send
-```
 
 ## License
 
