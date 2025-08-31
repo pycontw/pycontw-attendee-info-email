@@ -8,6 +8,7 @@ import {
 } from "../emails/pycon-en";
 import { readFileSync } from "node:fs";
 import { consola } from "consola";
+import { isValidEmail } from "./utils";
 
 interface Recipient {
   name: string;
@@ -76,6 +77,9 @@ function resolveRecipients(path: string): Recipient[] {
   const recipients: Recipient[] = [];
 
   for (const [email, name] of Object.entries(recipientsMap)) {
+    if (!isValidEmail(email)) {
+      throw new Error(`Invalid email: ${email}`);
+    }
     recipients.push({ email, name });
   }
 
