@@ -77,8 +77,8 @@ function resolveRecipients(path: string): Recipient[] {
   const recipients: Recipient[] = [];
 
   for (const [email, name] of Object.entries(recipientsMap)) {
-    if (!isValidEmail(email)) {
-      throw new Error(`Invalid email: ${email}`);
+    if (!name || typeof name !== "string" || !isValidEmail(email)) {
+      throw new Error(`Invalid recipient - ${email}: ${name}`);
     }
     recipients.push({ email, name });
   }
