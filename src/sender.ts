@@ -1,20 +1,23 @@
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { appendFileSync } from "node:fs";
+import { consola } from "consola";
 
 export function createSender({
   apiKey,
-  sender,
+  senderEmail,
+  senderName,
   log = './email_sent.log'
 }: {
   apiKey: string;
-  sender: { email: string; name: string };
+  senderEmail: string;
+  senderName: string;
   log?: string | false;
 }) {
   const mailerSend = new MailerSend({ apiKey });
-  const sentFrom = new Sender(sender.email, sender.name);
+  const sentFrom = new Sender(senderEmail, senderName);
 
   async function send(type: string, email: string, name: string, subject: string, emailHtml: string) {
-    console.log(`Sending ${type} email to ${name} <${email}>...`);
+    consola.start(`Sending ${type} email to ${name} <${email}>...`);
 
     const recipients = [new Recipient(email, name)];
     const emailParams = await new EmailParams()
