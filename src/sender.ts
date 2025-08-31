@@ -33,6 +33,6 @@ export function createSender({
 }
 
 function writeLog(filePath: string, type: string, email: string, name: string, response: string) {
-  const logEntry = `${new Date().toISOString()} - Sent \`${type}\` email to ${name} <${email}> - Response: ${response}\n`;
+  const logEntry = `${new Date().toLocaleString()} - Sent [${type}] email to ${name} <${email}> - Response: ${response}\n`;
   appendFileSync(filePath, logEntry);
 }
