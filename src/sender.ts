@@ -1,6 +1,7 @@
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { appendFileSync } from "node:fs";
 import { consola } from "consola";
+import { createRateLimiter } from "./rate-limit";
 
 export function createSender({
   apiKey,
@@ -15,6 +16,7 @@ export function createSender({
 }) {
   const mailerSend = new MailerSend({ apiKey });
   const sentFrom = new Sender(senderEmail, senderName);
+  const schedule = createRateLimiter();
 
   async function send(type: string, email: string, name: string, subject: string, emailHtml: string) {
     consola.start(`Sending ${type} email to ${name} <${email}>...`);
@@ -26,7 +28,7 @@ export function createSender({
       .setSubject(subject)
       .setHtml(emailHtml);
 
-    const response = await mailerSend.email.send(emailParams);
+    const response = await schedule(() => mailerSend.email.send(emailParams));
     if (log && response) {
       writeLog(log, type, email, name, JSON.stringify(response));
     }
